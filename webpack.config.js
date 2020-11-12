@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index',
+  entry: './client/index',
   output: {
     path: path.join(__dirname, '/dist'),
     filename: 'bundle.js',
@@ -10,11 +10,11 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
     alias: {
-      api: path.resolve(__dirname, './src/api/'),
-      app: path.resolve(__dirname, './src/app/'),
-      components: path.resolve(__dirname, './src/components/'),
-      features: path.resolve(__dirname, './src/features/'),
-      utils: path.resolve(__dirname, './src/utils/')
+      api: path.resolve(__dirname, './client/api/'),
+      app: path.resolve(__dirname, './client/app/'),
+      components: path.resolve(__dirname, './client/components/'),
+      features: path.resolve(__dirname, './client/features/'),
+      utils: path.resolve(__dirname, './client/utils/')
     },
   },
   module: {
@@ -34,11 +34,16 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html'
+      template: './client/index.html'
     })
   ],
   devServer: {
-    contentBase: path.join(__dirname, 'public')
+    contentBase: path.join(__dirname, 'public'),
+    proxy: {
+      '/upload': 'http://localhost:3000',
+      '/render': 'http://localhost:3000',
+      '/download': 'http://localhost:3000'
+    }
   },
   devtool: 'inline-source-map'
 };
