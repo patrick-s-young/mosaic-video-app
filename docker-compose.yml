@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  web-app:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    ports:
+      - '3000:3000'
+    restart: on-failure
+    container_name: web-app
+  express-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    ports:
+      - '3001:3001'
+    restart: on-failure
+    container_name: express-server
+    volumes:
+      - /app/node_modules # Inside the container, don't try to override this folder, just leave as is
+      - ./server:/app # Look at the server directory and copy everything into the app folder in the container
+      - video-upload:/app/upload
+      - video-public:/app/public/resize
+  ffmpeg-api:
+    build:
+      context: ./ffmpeg
+      dockerfile: Dockerfile.dev
+    ports:
+      - '3002:3002'
+    restart: on-failure
+    container_name: ffmpeg-api
+    volumes:
+      - /app/node_modules # Inside the container, don't try to override this folder, just leave as is
+      - ./ffmpeg:/app # Look at the server directory and copy everything into the app folder in the container
+      - video-upload:/app/upload
+      - video-public:/app/public/resize      
+
+volumes:
+  video-upload:
+  video-public:
+
+
+  
