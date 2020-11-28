@@ -40,12 +40,11 @@ module.exports = {
   devServer: {
     host: '0.0.0.0',
     port: 3000,
-    contentBase: path.join(__dirname, 'public'),
+    contentBase: path.join(__dirname, '../volume/public'),
     proxy: {
-      '/upload': 'http://localhost:3001',
-      '/resized': 'http://localhost:3001',
-      '/render': 'http://localhost:3001',
-      '/download': 'http://localhost:3001'
+      '/download': 'http://localhost:3000',
+      '/frames': 'http://localhost:3000',
+      '/resize': 'http://localhost:3000'
     }
   },
   devtool: 'inline-source-map'

@@ -5,6 +5,27 @@ export class FFmpegController {
 
     private ffmpeg_service: FFmpegService = new FFmpegService();
 
+    public probe_video (req: Request, res: Response) {
+        this.ffmpeg_service.probeVideo(req.body.filename, (width: number, height: number, duration: number, r_frame_rate: number, avg_frame_rate: number, bit_rate: number) => {
+            res.status(200).json({
+                width,
+                height,
+                duration,
+                r_frame_rate,
+                avg_frame_rate,
+                bit_rate
+            });
+        });
+    }
+
+    public export_frames (req: Request, res: Response) {
+        this.ffmpeg_service.exportFrames(req.body.filename, (statusMessage) => {
+            res.status(200).json({
+                statusMessage
+            });
+        });
+    }
+
     public resize_video (req: Request, res: Response) {
         console.log(`req.body.filename: ${req.body.filename}`)
         this.ffmpeg_service.resizeVideo(req.body.filename, (status: string) => {
@@ -15,27 +36,12 @@ export class FFmpegController {
         
     }
 
-    public export_frames (req: Request, res: Response) {
-        res.status(200).json({message:"FFmpegController: export_frames called"});
-        /*
-        this.render_service.exportFrames(filename, (err, res, body) => {
-            res.status(response_status_codes.success).json({
-                STATUS: 'SUCCESS',
-                MESSAGE: body
-            });
-        });
-        */
-    }
-
     public render_mosaic (req: Request, res: Response) {
-        res.status(200).json({message:"FFmpegController: render_mosaic called"});
-        /*
-        this.render_service.renderMosaic (filename, (err, res, body) => {
-            res.status(response_status_codes.success).json({
-                STATUS: 'SUCCESS',
-                MESSAGE: body
+        console.log(`req.body.filename: ${req.body.filename}`)
+        this.ffmpeg_service.renderMosaic(req.body.filename, (status: string) => {
+            res.status(200).json({
+                STATUS: status
             });
         });
-        */
     }
 }

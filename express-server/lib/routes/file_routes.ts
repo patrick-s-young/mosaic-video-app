@@ -13,7 +13,7 @@ export class FileRoutes {
          (req, res, next) => this.file_controller.upload_video(req, res, next), 
          (req, res, next) => this.render_service.resizeVideo(req, res, next),
          (req, res, next) => {
-         res.status(200).json({message:`/file/upload: POST request successfull. Uploaded and resized video filename: ${res.locals.filename}`});
+         res.status(200).json({filename: res.locals.filename});
       });
 
    }

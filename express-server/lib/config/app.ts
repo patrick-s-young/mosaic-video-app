@@ -3,7 +3,9 @@ import * as bodyParser from "body-parser";
 import { FileRoutes } from "../routes/file_routes";
 import { RenderRoutes } from "../routes/render_routes";
 import { CommonRoutes } from "../routes/common_routes";
+import * as cors from 'cors';
 const expressFileUpload = require('express-fileupload');
+import env from '../environment';
 
 class App {
 
@@ -24,8 +26,10 @@ class App {
 
    private config(): void {
       this.app.use(bodyParser.json());
+      this.app.use(cors());
       this.app.use(bodyParser.urlencoded({ extended: false }));
       this.app.use(expressFileUpload());
+      this.app.use(express.static(`${env.getVolumnPath()}/public`));
    }
 }
 export default new App().app;
