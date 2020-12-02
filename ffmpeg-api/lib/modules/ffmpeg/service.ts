@@ -28,7 +28,7 @@ export default class FFmpegService {
     const inputPath  = `${env.getVolumnPath()}/public/resize/${filename}`; 
     const outputPath = `${env.getVolumnPath()}/public/frames/`; 
     //const proc = spawn(ffmpegPath, ['-ss', 1, '-i', inputPath, '-vframes', 1, `${outputPath}extractframe.jpg`]);
-    const duration = 5.5;
+    const duration = 8.0;
     const frameInterval = 18 / duration;
     const proc = spawn(ffmpegPath, ['-i', inputPath, '-r', frameInterval, `${outputPath}img%03d.jpg`]);
     proc.stdout.on('data', function(data) {
