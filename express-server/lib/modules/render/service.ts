@@ -5,16 +5,16 @@ export default class RenderService {
     
     public resizeVideo (req: Request, res: Response, next: any) {
         axios.post('http://localhost:3002/resize', {
-              filename: res.locals.filename
+              assetID: res.locals.assetID
           })
           .then(function (response) {
             console.log(response);
-            res.locals.response = 'success';
+            res.locals.status = 'success';
             next();
           })
           .catch(function (error) {
             console.log(error);
-            res.locals.response = 'error';
+            res.locals.status = 'error';
             res.locals.error = error;
             next();
           });
@@ -26,7 +26,7 @@ export default class RenderService {
 
     public renderMosaic (req: Request, res: Response, next: any) {
         axios.post('http://localhost:3002/mosaic', {
-              filename: req.body.filename
+              assetID: req.query.assetID
           })
           .then(function (response) {
             console.log(response);

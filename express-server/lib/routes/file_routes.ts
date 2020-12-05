@@ -13,8 +13,10 @@ export class FileRoutes {
          (req, res, next) => this.file_controller.upload_video(req, res, next), 
          (req, res, next) => this.render_service.resizeVideo(req, res, next),
          (req, res, next) => {
-         res.status(200).json({filename: res.locals.filename});
-      });
+            console.log(`res.locals.assetID: ${res.locals.assetID}`);
+            res.status(200).json({assetID: res.locals.assetID});
+         }
+      );
 
    }
 }

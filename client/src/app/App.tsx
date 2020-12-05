@@ -1,44 +1,60 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { Navigation } from 'features/navigation'; 
+import { UploadVideo } from 'features/uploadVideo/UploadVideo';
+import { RenderMosaic } from 'features/renderMosaic/RenderMosaic';
+import Scrubber from 'features/mosaicImage/Scrubber';
+import ScrubberSlider from 'features/mosaicImage/ScrubberSlider';
+import { MosaicTiles, MosaicSelector } from 'features/mosaicVideo';
+import { useSelector } from 'react-redux';
+import type { RootState } from 'app/rootReducer';
+import type { NavState } from 'features/navigation/navSlice';
 import 'app/app.css';
 
 
 
 const App: React.FC = () => {
-  const [ videoSrc, setVideoSrc ] = useState<string>();
+  const { navSection } = useSelector<RootState, NavState>((state) => state.nav);
 
-  ////////// uploadVideo ///////
-  function uploadVideo (event) {
-    const files = event.target.files    
-    const formData = new FormData()
-    formData.append('myFile', files[0]);
-    formData.append('screenWidth', window.screen.width);
-    
-    fetch('http://localhost:3001/file/upload', {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => response.json())
-    .then(data => setVideoSrc(data.filename))
-    .catch(error => {
-      console.error(error)
-    })
-  }
-
-  console.log(`videoSrc: ${videoSrc}`)
-
-  ////////// return ////////////
   return (
-    <div>
-      {videoSrc == undefined
-        ? <div>
-            <label>UPLOAD VIDEO</label>
-            <input id="myFile" type="file" onChange={uploadVideo} ></input>
-          </div>
-        : <div>
-            <video src={`http://localhost:3001/resize/${videoSrc}`} webkit-playsinline='true' playsInline={true} muted autoPlay loop />
-          </div>
+    <div style={{height: '700px', width: '480px', borderStyle: 'dashed', borderColor: 'aquamarine', borderWidth: '2px'}}>
+      <div style={{height: '600px', width: '100%', borderStyle: 'dashed', borderColor: 'red', borderWidth: '2px'}}>
+    
+
+
+
+      { navSection === 'Upload Video' && 
+        <div style={{height: '600px', width: '100%', borderStyle: 'dashed', borderColor: 'green', borderWidth: '2px'}}>
+          <UploadVideo />
+        </div>
       }
+    
+
+
+      { navSection === 'Edit Mosaic' &&
+        <div>
+          <div style={{height: '480px', width: '100%', borderStyle: 'dashed', borderColor: 'yellow', borderWidth: '2px'}} >
+            <Scrubber />
+            <MosaicTiles />
+          </div>
+          <div style={{height: '50px', width: '100%', borderStyle: 'dashed', borderColor: 'brown', borderWidth: '2px'}} >
+            <ScrubberSlider />
+          </div>
+          <div style={{height: '80px', width: '100%', borderStyle: 'dashed', borderColor: 'pink', borderWidth: '2px'}}>
+            <MosaicSelector />
+          </div>
+        </div>
+      }
+
+      { navSection === 'Render Mosaic' && 
+        <div style={{height: '600px', width: '100%', borderStyle: 'dashed', borderColor: 'green', borderWidth: '2px'}}>
+          <RenderMosaic />
+        </div>
+      }
+
+      </div>
+      <div style={{height: '80px', width: '100%', borderStyle: 'dashed', borderColor: 'purple', borderWidth: '2px'}}>
+        <Navigation />
+      </div>
     </div>
   );
 }

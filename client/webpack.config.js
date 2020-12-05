@@ -38,14 +38,7 @@ module.exports = {
     })
   ],
   devServer: {
-    host: '0.0.0.0',
-    port: 3000,
-    contentBase: path.join(__dirname, '../volume/public'),
-    proxy: {
-      '/download': 'http://localhost:3000',
-      '/frames': 'http://localhost:3000',
-      '/resize': 'http://localhost:3000'
-    }
+    contentBase: path.join(__dirname, 'public')
   },
   devtool: 'inline-source-map'
 };
