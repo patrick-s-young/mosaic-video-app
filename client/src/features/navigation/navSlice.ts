@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type NavSection = 'Upload Video' | 'Mosaic Video' | 'Mosaic Image' | 'Render Download';
+export type NavSection = 'Upload Video' | 'Edit Mosaic' | 'Render Mosaic';
 
 export interface NavState {
   navSection: NavSection

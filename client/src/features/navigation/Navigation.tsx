@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavState, NavSection, setNavSection } from 'features/navigation/navSlice';
+import { setNavSection } from 'features/navigation/navSlice';
+import type { NavState, NavSection } from 'features/navigation/navSlice';
 import { v1 as uuid } from 'uuid';
 import type { RootState } from 'app/rootReducer';
 
@@ -8,7 +9,7 @@ import type { RootState } from 'app/rootReducer';
 
 export const Navigation: React.FC  = () => {
   const dispatch = useDispatch();
-  const navSections: Array<NavSection> = ['Upload Video', 'Mosaic Video', 'Mosaic Image', 'Render Download'];
+  const navSections: Array<NavSection> = ['Upload Video', 'Edit Mosaic', 'Render Mosaic'];
   const { navSection } = useSelector<RootState, NavState>((state) => state.nav);
 
   const onClickHandler = (newStateValue: NavSection) => {
@@ -16,15 +17,15 @@ export const Navigation: React.FC  = () => {
   }
 
   return (
-    <div style={{display: 'flex'}}>
+    <div style={{display: 'flex', width: '480px'}}>
       { navSections.map((section) =>
         <div key={uuid()} >
           { section !== navSection ?
               <div  onClick={() => onClickHandler(section)} 
-                    style={{backgroundColor: '#00ff00', width: '100px', height: '100px'}}>
+                    style={{backgroundColor: '#009900', width: '156px', height: '80px', margin: '2px', color: '#fff' }}>
                     {section}
               </div>
-            : <div  style={{backgroundColor: '#005500', width: '100px', height: '100px'}}>
+            : <div  style={{backgroundColor: '#00ff00', width: '156px', height: '80px', margin: '2px' }}>
                     {section}
               </div>
           }
