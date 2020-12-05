@@ -1,23 +1,30 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface IsUploaded {
-  isUploaded: boolean
+export interface VideoIsUploaded {
+  videoIsUploaded: boolean
   assetID: string
+  duration: number
 }
 
-export interface IsPreloaded {
-  isPreloaded: boolean
+export interface VideoIsPreloaded {
+  videoIsPreloaded: boolean
   videoURL: string
+}
+
+export interface ImagesArePreloaded {
+  imagesArePreloaded: boolean
   imageURLs: Array<string>
 }
 
-export type UploadState = IsUploaded & IsPreloaded;
+export type UploadState = VideoIsUploaded & VideoIsPreloaded & ImagesArePreloaded
 
 const initialState: UploadState = {
-  isUploaded: false,
-  isPreloaded: false,
+  videoIsUploaded: false,
   assetID: '',
+  duration: 0,
+  videoIsPreloaded: false,
   videoURL: '',
+  imagesArePreloaded: false,
   imageURLs: []
 }
 
@@ -25,24 +32,29 @@ const uploadSlice = createSlice ({
   name: 'upload',
   initialState,
   reducers: {
-    setIsUploaded (state, action: PayloadAction<IsUploaded>) {
-      state.isUploaded = true;
+    setVideoIsUploaded (state, action: PayloadAction<VideoIsUploaded>) {
+      state.videoIsUploaded = true;
       state.assetID = action.payload.assetID;
     },
-    setIsPreloaded (state, action: PayloadAction<IsPreloaded>) {
-      state.isPreloaded = true;
+    setVideoIsPreloaded (state, action: PayloadAction<VideoIsPreloaded>) {
+      state.videoIsPreloaded = true;
       state.videoURL = action.payload.videoURL;
+    },
+    setImagesArePreloaded (state, action: PayloadAction<ImagesArePreloaded>) {
+      state.imagesArePreloaded = true;
       state.imageURLs = action.payload.imageURLs;
     }   
   }
 });
 
 export const {
-  setIsUploaded,
-  setIsPreloaded
+  setVideoIsUploaded,
+  setVideoIsPreloaded,
+  setImagesArePreloaded
 } = uploadSlice.actions;
 
-export type SetIsUploaded = ReturnType <typeof setIsUploaded>;
-export type SetIsPreloaded = ReturnType <typeof setIsPreloaded>;
+export type SetVideoIsUploaded = ReturnType <typeof setVideoIsUploaded>;
+export type SetVideoIsPreloaded = ReturnType <typeof setVideoIsPreloaded>;
+export type SetImagesArePreloaded = ReturnType <typeof setImagesArePreloaded>;
 
 export default uploadSlice.reducer;
