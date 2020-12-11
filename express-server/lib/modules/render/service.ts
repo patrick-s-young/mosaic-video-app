@@ -4,7 +4,7 @@ const axios = require('axios');
 export default class RenderService {
     
     public resizeVideo (req: Request, res: Response, next: any) {
-        axios.post('http://localhost:3002/resize', {
+        axios.post('http://host.docker.internal:3002/resize', {
               assetID: res.locals.assetID
           })
           .then(function (response) {
@@ -25,7 +25,7 @@ export default class RenderService {
     }
 
     public renderMosaic (req: Request, res: Response, next: any) {
-        axios.post('http://localhost:3002/mosaic', {
+        axios.post('http://0.0.0.0:3002/mosaic', {
               assetID: req.query.assetID
           })
           .then(function (response) {

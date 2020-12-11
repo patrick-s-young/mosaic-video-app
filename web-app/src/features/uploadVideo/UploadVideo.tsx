@@ -28,14 +28,14 @@ export const UploadVideo: React.FC = () => {
   }
 
   function onFormSubmit (event) {
-    uploadFile(event.target.files[0], 'http://localhost:3001/file/upload')
+    uploadFile(event.target.files[0], 'http://0.0.0.0:3001/file/upload')
       .then(assetID => onVideoIsUploaded(assetID))
       .catch(error => console.log(error))
   }
 
   useEffect(() => {
     if (videoIsUploaded && !videoIsPreloaded) {
-      const videoPath = `http://localhost:3001/${assetID}/resized.mov`;
+      const videoPath = `http://0.0.0.0:3001/${assetID}/resized.mov`;
       preloadVideo(videoPath)
         .then(videoURL => onVideoIsPreloaded(videoURL))
         .catch(err => console.log(`ERROR: ${err}`));
@@ -49,7 +49,7 @@ export const UploadVideo: React.FC = () => {
         endIdx: 20,
         nameFormat: 'img .jpg',
         zeroPadding: 3,
-        directoryPath: `http://localhost:3001/${assetID}`
+        directoryPath: `http://0.0.0.0:3001/${assetID}`
       })
         .then(imageURLs => onImagesArePreloaded(imageURLs))
         .catch(err => console.log(`ERROR: ${err}`));

@@ -26,8 +26,9 @@ class Environment {
 
   getVolumnPath(): String {
     if (this.environment === Environments.local_environment) {
-        const path = require('path');
-        return path.resolve(__dirname, '../../volume');
+        //const path = require('path');
+        //return path.resolve(__dirname, '../../volume');
+        return '/var/lib/video';
     }
   }
 }

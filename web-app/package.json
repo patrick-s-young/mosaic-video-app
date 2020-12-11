@@ -7,6 +7,7 @@
     "bundle": "webpack",
     "test": "jest",
     "start": "webpack-dev-server --mode development --open --hot",
+    "container": "webpack-dev-server --host 0.0.0.0 --mode development --open --hot",
     "build": "webpack --mode production",
     "check-types": "tsc"
   },
