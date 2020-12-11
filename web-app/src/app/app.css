@@ -1,0 +1,24 @@
+.app-container {
+  display: grid;
+  grid-template-rows: 600px, 100px;
+  grid-template-columns: 1fr;
+  border-style: dashed;
+  border-color: aquamarine;
+  border-width: 2px;
+}
+
+.upload-video-container {
+  display: grid;
+  grid-template-rows: 600px;  
+  border-style: dashed;
+  border-color: rgb(228, 180, 22);
+  border-width: 2px;
+}
+
+.edit-mosaic-container {
+  display: grid;
+  grid-template-rows: 480px, 48px, 72px;
+  border-style: dashed;
+  border-color: rgb(159, 29, 148);
+  border-width: 2px;
+}
