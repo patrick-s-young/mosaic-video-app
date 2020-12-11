@@ -23,6 +23,7 @@ let sequenceCounter = 0;
 
 module.exports.createOverlayFilter = function (panelCount, sequenceCount) {
   const overlayFilterArr = allOverlayFiltersObj[panelCount];
+  let panelCounter: number = 0;
 
   for (panelCounter = 0; panelCounter < panelCount; panelCounter++) {
     for (sequenceCounter = 0; sequenceCounter < sequenceCount; sequenceCounter++) {

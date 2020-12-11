@@ -10,7 +10,7 @@ export const RenderMosaic: React.FC = () => {
 
   function onClickHandler (assetID: string) {
     axios({
-      url: `http://localhost:3001/render/mosaic/?assetID=${assetID}`,
+      url: `http://0.0.0.0:3001/render/mosaic/?assetID=${assetID}`,
       method: 'GET',
       responseType: 'blob'
     }).then((response) => {
