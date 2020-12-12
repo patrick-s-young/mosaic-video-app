@@ -20,7 +20,7 @@ export type TimeGroup = Array<Time>;
 export type TimeGroupCollection = { [key in NumTilesToString] : TimeGroup };
 
 
-export interface MosaicState {
+export interface MosaicState{
   numTiles: NumTiles,
   canvasWidth: number,
   inPoints: TimeGroupCollection,

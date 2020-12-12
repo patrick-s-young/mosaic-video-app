@@ -16,7 +16,7 @@ export class FFmpegController {
     }
 
     public render_mosaic (req: Request, res: Response, next: any) {
-        console.log(`FFmpegController.ts : render_mosaic : req.body.assetID: ${req.body.assetID}`);
+        console.log(`FFmpegController.ts : render_mosaic : req.body.assetID=${req.body.assetID}, req.body.numTiles=${req.body.numTiles}, req.body.currentScrubberFrame=${req.body.currentScrubberFrame}`);
         this.ffmpeg_service.renderMosaic(req, res, next);
     }
 

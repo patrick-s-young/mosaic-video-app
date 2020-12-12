@@ -25,8 +25,10 @@ export default class RenderService {
     }
 
     public renderMosaic (req: Request, res: Response, next: any) {
-        axios.post('http://0.0.0.0:3002/mosaic', {
-              assetID: req.query.assetID
+        axios.post('http://host.docker.internal:3002/mosaic', {
+              assetID: req.query.assetID,
+              numTiles: req.query.numTiles,
+              currentScrubberFrame: req.query.currentScrubberFrame
           })
           .then(function (response) {
             console.log(response);

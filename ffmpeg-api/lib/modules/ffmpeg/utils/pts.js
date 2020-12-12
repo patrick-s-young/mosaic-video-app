@@ -47,11 +47,14 @@ const allPanelSequencesObj =
 
 module.exports.createPtsFilter = function (panelCount) {
   const panelSequenceObj = allPanelSequencesObj[panelCount];
+  let ptsFilterStr = '';
+  console.log(`in pts.js : ptsFilterStr=${ptsFilterStr}`);
 
   for (let [panel, startTimes] of Object.entries(panelSequenceObj)) {
     startTimes.forEach((startTime, idx) => ptsFilterStr += `[split.${panel}.${idx}] setpts=PTS-STARTPTS+${startTime}/TB [input.${panel}.${idx}]; \n`);
 
   }
 
+  console.log(`\n\nptsFilterStr=${ptsFilterStr}`);
   return ptsFilterStr;
 }
