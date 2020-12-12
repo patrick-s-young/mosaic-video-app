@@ -42,9 +42,9 @@ export default class FFmpegService {
     const inputPath  = `${env.getVolumnPath()}/public/${assetID}/resized.mov`; 
     const outputPath = `${env.getVolumnPath()}/public/${assetID}/`; 
     //const proc = spawn(ffmpegPath, ['-ss', 1, '-i', inputPath, '-vframes', 1, `${outputPath}extractframe.jpg`]);
-    const duration = 7.0;
+    const duration = 6.0;
     const frameInterval = 18 / duration;
-    const proc = spawn(ffmpegPath, ['-i', inputPath, '-r', frameInterval, `${outputPath}img%03d.jpg`]);
+    const proc = spawn(ffmpegPath, ['-i', inputPath, '-vf', 'hue=s=0.1', '-r', frameInterval, `${outputPath}img%03d.jpg`]);
     proc.stdout.on('data', function(data) {
       console.log(`proc.stdout.on('data'): ${data}`);
     });
@@ -61,13 +61,18 @@ export default class FFmpegService {
 
 
   public renderMosaic  (req: Request, res: Response, next: any) {
+
+    const duration = 6.0;
+    const frameInterval = duration / 19;
+    console.log(`\n\nframeInterval=${frameInterval}`);
+    const bgFrameStart = req.body.currentScrubberFrame * frameInterval;
     const filterParams = {
-      panelCount: 9,
-      sequenceCount: 3,
+      panelCount: req.body.numTiles,
+      sequenceCount: req.body.numTiles > 4 ? 3 : 4,
       fadeInToOutDuration: 2.0,
       outputDuration: 15.0,
       outputSize: '1080x1080',
-      bgFrameStart: 1.0,
+      bgFrameStart,
       bgFrameHue: ', hue=s=0.1',
       preCropStr: '',
       inputHeight: 480,
@@ -80,6 +85,7 @@ export default class FFmpegService {
     const outputDirectory = `${env.getVolumnPath()}/public/${assetID}`; 
     const outputPath = `${outputDirectory}/mosaic.mov`; 
     const ffmpegFilterComplexStr = createFfmpegFilterComplexStr(filterParams);
+    console.log(`\n\nffmpegFilterComplexStr=${ffmpegFilterComplexStr}\n\n`);
 
     const proc = spawn(ffmpegPath, ['-i', inputPath, '-filter_complex', ffmpegFilterComplexStr, '-map', '[final]', '-an', '-y', outputPath]);
     proc.stdout.on('data', function(data) {

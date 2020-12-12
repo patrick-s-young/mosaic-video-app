@@ -2,6 +2,8 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setVideoIsUploaded, setVideoIsPreloaded, setImagesArePreloaded } from 'features/uploadVideo/uploadSlice';
+import { setNavSection } from 'features/navigation/navSlice';
+import type { NavState, NavSection } from 'features/navigation/navSlice';
 import type { RootState } from 'app/rootReducer';
 import type { UploadState, VideoIsUploaded, VideoIsPreloaded, ImagesArePreloaded } from 'features/uploadVideo/uploadSlice';
 import { preloadSequentialImages, preloadVideo, uploadFile } from 'utils';
@@ -24,7 +26,7 @@ export const UploadVideo: React.FC = () => {
 
   function onImagesArePreloaded (imageURLs: Array<string>) {
     dispatch(setImagesArePreloaded({ imagesArePreloaded: true, imageURLs }));
-
+    dispatch(setNavSection({navSection: 'Edit Mosaic'}));
   }
 
   function onFormSubmit (event) {
