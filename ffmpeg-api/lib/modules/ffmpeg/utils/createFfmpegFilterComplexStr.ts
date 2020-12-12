@@ -19,10 +19,13 @@ module.exports.createFfmpegFilterComplexStr = function ({
 
   /////////////////////
   // PRE CROP TO SQUARE
-  if (inputWidth < inputHeight) {
+  /*if (inputWidth < inputHeight) {
     let offsetY = (inputHeight - inputWidth) / 2;
     preCropStr = `crop=1080:1080:0:${offsetY}, `;
   }
+  */
+
+  preCropStr = 'crop=1080:1080:0:420, ';
 
   /////////////////////////////
   // CREATE BASE AND BG
